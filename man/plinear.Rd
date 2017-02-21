@@ -30,6 +30,6 @@ plot(y ~ x, data=d)
 lines(f ~ x, data=d)
 
 coef(mod)["x"] # Slope for 'x' in (-Inf, 5)
-coef(mod)[3] # Slope change between (-Inf, 5) and (5 Inf)
+coef(mod)[3] # Slope change at knot x=5
 coef(mod)["x"] + coef(mod)[3] # Slope for 'x' in (5, Inf)
 }
