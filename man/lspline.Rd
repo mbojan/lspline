@@ -9,7 +9,7 @@ lspline(x, knots = NULL, marginal = FALSE, names = NULL)
 \arguments{
 \item{x}{numeric vector, the variable}
 
-\item{knots}{numeric vector of knots positions}
+\item{knots}{numeric vector of knot positions}
 
 \item{marginal}{logical, how to parametrize the spline, see Details}
 
@@ -18,12 +18,19 @@ lspline(x, knots = NULL, marginal = FALSE, names = NULL)
 \description{
 Basis for a piecewise linear spline
 }
+\details{
+If \code{marginal} is \code{FALSE} the coefficients of the spline correspond
+to slopes of the consecutive segments. If it is \code{TRUE} the first
+coefficient correspond to the slope of the first segment. The consecutive
+coefficients correspond to the change in slope as compared to the previous
+segment.
+}
 \references{
-Junger & Ponce de Leon (2011) "ares: Environment air
-pollution epidemiology: a library for timeseries
-analysis". R package version 0.7.2 retrieved from CRAN
-archives.
+Junger & Ponce de Leon (2011) "ares: Environment air pollution epidemiology:
+a library for timeseries analysis". R package version 0.7.2 retrieved from
+CRAN archives.
 }
 \author{
-Based on \code{ares::lspline} from Junger & Ponce de Leon (2011)
+This function is inspired by Stata command \code{mkspline} and function
+\code{ares::lspline} from Junger & Ponce de Leon (2011).
 }
