@@ -25,7 +25,7 @@ Linear splines with alternative parametrizations to `splines::bs`:
 - coefficients capture slope change
 
 
-# Example of use
+# Example
 
 Let us generate some artificial data
 
@@ -75,3 +75,20 @@ The coefficients are
 - ``r n[3]`` - the change in slope at knot $x=5$; it is changing from 2 to -3, so by -5
 - ``r n[4]`` - tha change in slope at knot $x=10$; it is changing from -3 to 0, so by 3
 
+
+
+
+# Installation
+
+```{r installation, eval=FALSE}
+devtools::install_github("mbojan/lspline")
+```
+
+
+
+
+# Acknowledgements
+
+Inspired by Stata command `mkspline` and function `ares::lspline` from Junger & Ponce de Leon (2011).
+
+- Junger & Ponce de Leon (2011) *`ares`: Environment air pollution epidemiology: a library for timeseries analysis*. R package version 0.7.2 retrieved from CRAN archives.

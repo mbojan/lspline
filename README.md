@@ -13,8 +13,8 @@ Linear splines with alternative parametrizations to `splines::bs`:
 -   coefficients are slopes of consecutive segments
 -   coefficients capture slope change
 
-Example of use
-==============
+Example
+=======
 
 Let us generate some artificial data
 
@@ -107,3 +107,17 @@ The coefficients are
 -   `lspline(x, c(5, 10), marginal = TRUE)x` - the slope of the first segment
 -   `lspline(x, c(5, 10), marginal = TRUE)` - the change in slope at knot *x* = 5; it is changing from 2 to -3, so by -5
 -   `lspline(x, c(5, 10), marginal = TRUE)` - tha change in slope at knot *x* = 10; it is changing from -3 to 0, so by 3
+
+Installation
+============
+
+``` r
+devtools::install_github("mbojan/lspline")
+```
+
+Acknowledgements
+================
+
+Inspired by Stata command `mkspline` and function `ares::lspline` from Junger & Ponce de Leon (2011).
+
+-   Junger & Ponce de Leon (2011) *`ares`: Environment air pollution epidemiology: a library for timeseries analysis*. R package version 0.7.2 retrieved from CRAN archives.
