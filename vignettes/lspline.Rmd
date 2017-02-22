@@ -11,10 +11,10 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-Function `plinear::plinear()` enables to fit piecewise-linear regression effect parametrized such that changes in slope can be tested directly.
+Function `lspline::lspline()` enables to fit piecewise-linear regression effect parametrized such that changes in slope can be tested directly.
 
 ```{r load_package}
-library(plinear)
+library(lspline)
 ```
 
 # Artificial data
@@ -51,14 +51,14 @@ plot( y ~ x, col=ints, data=d)
 
 # Fitting a model
 
-We can recover the data-generating model by fitting a linear model with a linear spline. Function `plinear` expects the input vector and an open list of values corresponding to the positions of the knots.
+We can recover the data-generating model by fitting a linear model with a linear spline. Function `lspline` expects the input vector and an open list of values corresponding to the positions of the knots.
 
 Below the spline will have knots at 5 and 10.
 
 Notice that original `x` is also included in the model.
 
 ```{r}
-mod <- lm( y ~ x + plinear(x, 5, 10), data=d)
+mod <- lm( y ~ x + lspline(x, c(5, 10)), data=d)
 summary(mod)
 ```
 
