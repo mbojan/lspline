@@ -11,13 +11,67 @@ knitr::opts_chunk$set(
 
 # lspline
 
+<!--
 [![Build Status](https://travis-ci.org/mbojan/lspline.png?branch=master)](https://travis-ci.org/mbojan/lspline)
-<!-- [![Build Status]()]() -->
+!-- [![Build Status]()]() --
 [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/lspline?color=2ED968)](http://cranlogs.r-pkg.org/)
 [![cran version](http://www.r-pkg.org/badges/version/lspline)](https://cran.r-project.org/package=lspline)
+-->
 
 
 Linear splines with alternative parametrizations to `splines::bs`:
 
 - coefficients are slopes of consecutive segments
 - coefficients capture slope change
+
+
+# Example of use
+
+Let us generate some artificial data
+
+```{r data}
+set.seed(666)
+n <- 200
+d <- data.frame(
+  x = runif(n) * 20
+)
+d$interval <- findInterval(d$x, c(5, 10), rightmost.closed = TRUE) + 1
+d$slope <- c(2, -3, 0)[d$interval]
+d$intercept <- c(0, 25, -5)[d$interval]
+d$y <- with(d, intercept + slope * x + rnorm(n, 0, 1))
+```
+
+Plotting `y` against `x`
+
+```{r show_data}
+library(ggplot2)
+
+ggplot(d, aes(x=x, y=y)) + 
+  geom_point(aes(colour=as.character(slope))) +
+  scale_color_discrete(name="Slope")
+```
+
+
+We can parametrize the spline with slopes of individual segments (default `marginal=FALSE`):
+
+```{r lspline_nonmarginal}
+library(lspline)
+m1 <- lm(y ~ lspline(x, c(5, 10)), data=d)
+summary(m1)
+```
+
+Or parametrize with coeficients measuring change in slope (with `marginal=TRUE`):
+
+```{r rspline_marginal, echo=1:2}
+m2 <- lm(y ~ lspline(x, c(5,10), marginal=TRUE), data=d)
+summary(m2)
+k <- coef(m2)
+n <- names(k)
+```
+
+The coefficients are
+
+- ``r n[2]`` - the slope of the first segment
+- ``r n[3]`` - the change in slope at knot $x=5$; it is changing from 2 to -3, so by -5
+- ``r n[4]`` - tha change in slope at knot $x=10$; it is changing from -3 to 0, so by 3
+
