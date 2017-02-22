@@ -8,10 +8,10 @@ lspline
 [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/lspline?color=2ED968)](http://cranlogs.r-pkg.org/)
 [![cran version](http://www.r-pkg.org/badges/version/lspline)](https://cran.r-project.org/package=lspline)
 -->
-Linear splines with alternative parametrizations to `splines::bs`:
+Linear splines with parametrizations such that
 
 -   coefficients are slopes of consecutive segments
--   coefficients capture slope change
+-   coefficients capture slope change at consecutive knots
 
 Example
 =======
@@ -107,6 +107,13 @@ The coefficients are
 -   `lspline(x, c(5, 10), marginal = TRUE)x` - the slope of the first segment
 -   `lspline(x, c(5, 10), marginal = TRUE)` - the change in slope at knot *x* = 5; it is changing from 2 to -3, so by -5
 -   `lspline(x, c(5, 10), marginal = TRUE)` - tha change in slope at knot *x* = 10; it is changing from -3 to 0, so by 3
+
+The two parametrizations give obviously identical predicted values
+
+``` r
+all.equal( fitted(m1), fitted(m2) )
+## [1] TRUE
+```
 
 Installation
 ============

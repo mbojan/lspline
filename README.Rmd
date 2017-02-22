@@ -19,10 +19,11 @@ knitr::opts_chunk$set(
 -->
 
 
-Linear splines with alternative parametrizations to `splines::bs`:
+Linear splines with parametrizations such that
 
 - coefficients are slopes of consecutive segments
-- coefficients capture slope change
+- coefficients capture slope change at consecutive knots
+
 
 
 # Example
@@ -74,6 +75,12 @@ The coefficients are
 - ``r n[2]`` - the slope of the first segment
 - ``r n[3]`` - the change in slope at knot $x=5$; it is changing from 2 to -3, so by -5
 - ``r n[4]`` - tha change in slope at knot $x=10$; it is changing from -3 to 0, so by 3
+
+The two parametrizations give obviously identical predicted values
+
+```{r same_fitted}
+all.equal( fitted(m1), fitted(m2) )
+```
 
 
 
