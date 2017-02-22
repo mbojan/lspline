@@ -8,7 +8,18 @@ d <- data.frame(
 )
 
 
-test_that("it works", {
-  m1 <- lm(y ~ lspline(x, c(5), marginal=TRUE), data=d)
-  m2 <- lm(y ~ lspline(x, c(5), marginal=FALSE), data=d)
+test_that("it works for marginal=TRUE", {
+  expect_silent(
+    m1 <- lm(y ~ lspline(x, c(5), marginal=TRUE), data=d)
+    )
+  expect_equivalent( coef(m1), c(6, -1, 2) )
 })
+
+
+test_that("it works for marginal=FALSE", {
+  expect_silent(
+    m2 <- lm(y ~ lspline(x, c(5), marginal=FALSE), data=d)
+  )
+  expect_equivalent(coef(m2), c(6, -1, 1) )
+})
+

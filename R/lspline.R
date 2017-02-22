@@ -19,6 +19,7 @@
 
 lspline <- function( x, knots=NULL, marginal=FALSE, names=NULL ) {
   n <- length(x)
+  nvars <- length(knots) + 1
   if( length(knots) > n/2)
     stop("too many knots")
   namex <- deparse(substitute(x))
@@ -29,12 +30,14 @@ lspline <- function( x, knots=NULL, marginal=FALSE, names=NULL ) {
       sapply(knots, function(k) ifelse((x - k) > 0, x-k, 0) )
     )
   } else {
-    rval <- matrix(0, nrow = n, ncol=length(knots)+1)
+    rval <- matrix(0, nrow = n, ncol=nvars)
     rval[,1] <- pmin(x, knots[1])
-    for( k in seq(along=knots)[seq(2, length(knots))] ) {
-        rval[,k] <- pmax( pmin(x, knots[k]), knots[k-1]) - knots[k-1]
+    rval[,nvars] <- pmax(x, knots[length(knots)]) - knots[length(knots)]
+    if(nvars > 2) {
+      for(i in seq(2, nvars-1)) {
+        rval[,i] <- pmax(  pmin(x, knots[i]), knots[i-1] ) - knots[i-1]
+      }
     }
-    rval[,length(knots)+1] <- pmax(x, knots[length(knots)-1]) - knots[length(knots)-1]
   }
   rval
 }
