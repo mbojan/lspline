@@ -1,8 +1,8 @@
-Package: plinear
+Package: lspline
 Type: Package
-Title: Piecewise-linear splines for GLMs
+Title: Piecewise-linear splines
 Version: 0.1-0
-Description: Piecewise-linear splines for Generalized Linear Models using a "change-in-slope" parametrization.
+Description: Piecewise-linear splines using different parametrizatons.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
