@@ -3,6 +3,7 @@ Type: Package
 Title: Piecewise-linear splines
 Version: 0.1-0
 Description: Piecewise-linear splines using different parametrizatons.
+Suggests: testthat
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
