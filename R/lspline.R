@@ -6,13 +6,16 @@
 #' @param names character, vector of names for constructed variables
 #'
 #' @author
-#' Based on \code{ares::lspline} from Junger & Ponce de Leon (2011)
+#' This function is inspired by \code{ares::lspline} from Junger & Ponce de Leon
+#' (2011) which is no longer available on CRAN.
 #'
 #' @references
 #' Junger & Ponce de Leon (2011) "ares: Environment air
 #' pollution epidemiology: a library for timeseries
 #' analysis". R package version 0.7.2 retrieved from CRAN
 #' archives.
+#'
+#' @export
 
 lspline <- function( x, knots=NULL, marginal=FALSE, names=NULL ) {
   n <- length(x)
@@ -36,13 +39,3 @@ lspline <- function( x, knots=NULL, marginal=FALSE, names=NULL ) {
   rval
 }
 
-
-
-if(FALSE) {
-  set.seed(666)
-  d <- data.frame(
-   x = 1:10,
-   y = c(5:1, 2:6) + rnorm(10, 0, 0.5)
-  )
-
-}
