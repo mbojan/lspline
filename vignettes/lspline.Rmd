@@ -39,7 +39,8 @@ We have a data frame `d` with `x` and `y` such that
 - $y = -3 x + 25$ if $x \in (5, 10)$
 - $y = -5$ if $x \in (10, \infty)$
 
-Essentially it is generated from a linear spline with knots at $x=5$ and $x=10$ and with $\sigma = 1$.
+Essentially it is generated from a linear spline with knots at $x=5$ and $x=10$. The consecutive segments
+have slopes 2, -3, and 0. The model has $\sigma = 1$.
 
 Plotting `y` against `x` gives:
 
@@ -47,35 +48,69 @@ Plotting `y` against `x` gives:
 plot( y ~ x, col=ints, data=d)
 ```
 
+# Recovering segment slopes (`marginal = FALSE`)
+
+We can recover the data-generating model by fitting a linear model with a linear spline. Function `lspline` expects the input vector and argument `knots` with a vector of the positions of the knots. Using argument `marginal` set to `FALSE` (which is the default) creates the basis in such a way that the regression coefficients will correspond to slopes of consecutive segments:
+
+```{r lspline_nonmarginal}
+mod1 <- lm( y ~ lspline(x, c(5, 10), marginal=FALSE), data=d)
+summary(mod1)
+```
+
+The coeficients are close enough to the values used to generate the data.
 
 
-# Fitting a model
 
-We can recover the data-generating model by fitting a linear model with a linear spline. Function `lspline` expects the input vector and an open list of values corresponding to the positions of the knots.
+
+
+
+
+
+# Testing slope change (`marginal = TRUE`)
+
 
 Below the spline will have knots at 5 and 10.
 
 Notice that original `x` is also included in the model.
 
-```{r}
-mod <- lm( y ~ x + lspline(x, c(5, 10)), data=d)
-summary(mod)
+```{r lspline_marginal}
+mod2 <- lm( y ~ lspline(x, c(5, 10), marginal=TRUE), data=d)
+summary(mod2)
 ```
 
 The coefficients have the following interpretation:
 
 - Intercept - as usual.
 - `x` - the slope of `x` in the first interval
-- `plinear(x, 5, 10).x>5` - the **change** in slope of `x` in the **second** interval as compared to the **first**. That slope in the second interval is approx. `r coef(mod)[2]` + `r coef(mod)[3]` = `r sum(coef(mod)[2:3])`.
-- `plinear(x, 5, 10).x>10` - the **change** in slope of `x` in the **third** interval as compared to the **second**. The slope in the third interval is approx `r coef(mod)[2]` + `r coef(mod)[3]` + `r coef(mod)[4]` = `r sum(coef(mod)[2:4])`.
+- `plinear(x, 5, 10).x>5` - the **change** in slope of `x` in the **second** interval as compared to the **first**. That slope in the second interval is approx. `r coef(mod2)[2]` + `r coef(mod2)[3]` = `r sum(coef(mod2)[2:3])`.
+- `plinear(x, 5, 10).x>10` - the **change** in slope of `x` in the **third** interval as compared to the **second**. The slope in the third interval is approx `r coef(mod2)[2]` + `r coef(mod2)[3]` + `r coef(mod2)[4]` = `r sum(coef(mod2)[2:4])`.
 
 So almost identical to the original slopes of 2, -3, and 0.
 
 
-Data and fitted values:
 
-```{r plot_model}
-d$f <- fitted(mod)
+
+
+
+
+# Data and fitted values
+
+Both models have identical fitted values
+
+```{r equal_fitted_values}
+all.equal(fitted(mod1), fitted(mod2))
+```
+
+```{r test_equal_fitted_values, include=FALSE}
+stopifnot(all.equal(fitted(mod1), fitted(mod2)))
+```
+
+
+
+as can be also inspected on the following picture.
+
+```{r plot_fitted}
+d$f <- fitted(mod1)
 d <- d[order(d$x),]
 
 plot(y ~ x, col=adjustcolor(ints, 0.5), data=d)
