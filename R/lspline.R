@@ -72,13 +72,13 @@ lspline <- function( x, knots=NULL, marginal=FALSE, names=NULL ) {
 #' @param ... other arguments passed to \code{lspline}
 #'
 #' @details
-#' Function \code{qlspline} calculates the knot positions to be at quantiles of
-#' \code{x}. If \code{q} is a numerical scalar greater or equal to 2, the
-#' quantiles are computed at \code{seq(0, 1, length.out = q + 1)[-c(1, q+1)]},
-#' i.e. knots are at \code{q}-tiles of the distribution of \code{x}.
-#' Alternatively, \code{q} can be a vector of values in [0; 1] specifying the
-#' quantile probabilities directly (the vector is passed to argument
-#' \code{probs} of \code{\link{quantile}}).
+#' Function \code{qlspline} wraps \code{lspline} and calculates the knot
+#' positions to be at quantiles of \code{x}. If \code{q} is a numerical scalar
+#' greater or equal to 2, the quantiles are computed at \code{seq(0, 1,
+#' length.out = q + 1)[-c(1, q+1)]}, i.e. knots are at \code{q}-tiles of the
+#' distribution of \code{x}. Alternatively, \code{q} can be a vector of values
+#' in [0; 1] specifying the quantile probabilities directly (the vector is
+#' passed to argument \code{probs} of \code{\link{quantile}}).
 #'
 #' @export
 qlspline <- function(x, q, na.rm=FALSE, ...) {
@@ -102,8 +102,8 @@ qlspline <- function(x, q, na.rm=FALSE, ...) {
 #'   \code{n} equally-spaced intervals along the range of \code{x}
 #'
 #' @details
-#' Function \code{elspline} computes the knots such that they cut the range of
-#' \code{x} into \code{n} equal width intervals.
+#' Function \code{elspline} wraps \code{lspline} and computes the knot positions
+#' such that they cut the range of \code{x} into \code{n} equal-width intervals.
 #'
 #' @export
 elspline <- function(x, n, ...) {

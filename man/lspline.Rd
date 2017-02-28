@@ -46,16 +46,16 @@ first coefficient correspond to the slope of the first segment. The
 consecutive coefficients correspond to the change in slope as compared to the
 previous segment.
 
-Function \code{qlspline} calculates the knot positions to be at quantiles of
-\code{x}. If \code{q} is a numerical scalar greater or equal to 2, the
-quantiles are computed at \code{seq(0, 1, length.out = q + 1)[-c(1, q+1)]},
-i.e. knots are at \code{q}-tiles of the distribution of \code{x}.
-Alternatively, \code{q} can be a vector of values in [0; 1] specifying the
-quantile probabilities directly (the vector is passed to argument
-\code{probs} of \code{\link{quantile}}).
+Function \code{qlspline} wraps \code{lspline} and calculates the knot
+positions to be at quantiles of \code{x}. If \code{q} is a numerical scalar
+greater or equal to 2, the quantiles are computed at \code{seq(0, 1,
+length.out = q + 1)[-c(1, q+1)]}, i.e. knots are at \code{q}-tiles of the
+distribution of \code{x}. Alternatively, \code{q} can be a vector of values
+in [0; 1] specifying the quantile probabilities directly (the vector is
+passed to argument \code{probs} of \code{\link{quantile}}).
 
-Function \code{elspline} computes the knots such that they cut the range of
-\code{x} into \code{n} equal width intervals.
+Function \code{elspline} wraps \code{lspline} and computes the knot positions
+such that they cut the range of \code{x} into \code{n} equal-width intervals.
 }
 \references{
 Junger & Ponce de Leon (2011) "ares: Environment air pollution epidemiology:
