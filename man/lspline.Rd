@@ -4,7 +4,7 @@
 \alias{lspline}
 \alias{qlspline}
 \alias{elspline}
-\title{Basis for a piecewise linear spline}
+\title{Basis for a piecewise linear spline with meaningful coefficients}
 \usage{
 lspline(x, knots = NULL, marginal = FALSE, names = NULL)
 
@@ -34,14 +34,17 @@ quantiles, passed to \code{na.rm} of \code{\link{quantile}}.}
 \code{n} equally-spaced intervals along the range of \code{x}}
 }
 \description{
-Basis for a piecewise linear spline
+These functions compute the basis of piecewise-linear spline such that,
+depending on the argument \code{marginal}, the coefficients can be
+interpreted as (1) slopes of consecutive spline segments, or (2) slope change
+at consecutive knots.
 }
 \details{
-If \code{marginal} is \code{FALSE} the coefficients of the spline correspond
-to slopes of the consecutive segments. If it is \code{TRUE} the first
-coefficient correspond to the slope of the first segment. The consecutive
-coefficients correspond to the change in slope as compared to the previous
-segment.
+If \code{marginal} is \code{FALSE} (default) the coefficients of the spline
+correspond to slopes of the consecutive segments. If it is \code{TRUE} the
+first coefficient correspond to the slope of the first segment. The
+consecutive coefficients correspond to the change in slope as compared to the
+previous segment.
 
 Function \code{qlspline} calculates the knot positions to be at quantiles of
 \code{x}. If \code{q} is a numerical scalar greater or equal to 2, the
@@ -58,6 +61,9 @@ Function \code{elspline} computes the knots such that they cut the range of
 Junger & Ponce de Leon (2011) "ares: Environment air pollution epidemiology:
 a library for timeseries analysis". R package version 0.7.2 retrieved from
 CRAN archives.
+}
+\seealso{
+See the package vignette.
 }
 \author{
 This function is inspired by Stata command \code{mkspline} and function

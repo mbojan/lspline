@@ -1,4 +1,9 @@
-#' Basis for a piecewise linear spline
+#' Basis for a piecewise linear spline with meaningful coefficients
+#'
+#' These functions compute the basis of piecewise-linear spline such that,
+#' depending on the argument \code{marginal}, the coefficients can be
+#' interpreted as (1) slopes of consecutive spline segments, or (2) slope change
+#' at consecutive knots.
 #'
 #' @param x numeric vector, the variable
 #' @param knots numeric vector of knot positions
@@ -6,11 +11,14 @@
 #' @param names character, vector of names for constructed variables
 #'
 #' @details
-#' If \code{marginal} is \code{FALSE} the coefficients of the spline correspond
-#' to slopes of the consecutive segments. If it is \code{TRUE} the first
-#' coefficient correspond to the slope of the first segment. The consecutive
-#' coefficients correspond to the change in slope as compared to the previous
-#' segment.
+#' If \code{marginal} is \code{FALSE} (default) the coefficients of the spline
+#' correspond to slopes of the consecutive segments. If it is \code{TRUE} the
+#' first coefficient correspond to the slope of the first segment. The
+#' consecutive coefficients correspond to the change in slope as compared to the
+#' previous segment.
+#'
+#' @seealso
+#' See the package vignette.
 #'
 #' @author
 #' This function is inspired by Stata command \code{mkspline} and function
