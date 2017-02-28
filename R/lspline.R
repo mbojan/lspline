@@ -32,6 +32,9 @@
 #' @export
 
 lspline <- function( x, knots=NULL, marginal=FALSE, names=NULL ) {
+  if(!is.null(names)) {
+    .NotYetUsed("names")
+  }
   n <- length(x)
   nvars <- length(knots) + 1
   if( length(knots) > n/2)
