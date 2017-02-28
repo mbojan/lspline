@@ -48,3 +48,55 @@ lspline <- function( x, knots=NULL, marginal=FALSE, names=NULL ) {
   rval
 }
 
+
+
+
+#' @rdname lspline
+#'
+#' @param q numeric, a single scalar greater or equal to 2 for a number of
+#'   equal-frequency intervals along \code{x} or a vector of numbers in (0; 1) specifying
+#'   the quantiles explicitely.
+#' @param na.rm logical, whether \code{NA} should be removed when calculating
+#'   quantiles, passed to \code{na.rm} of \code{\link{quantile}}.
+#' @param ... other arguments passed to \code{lspline}
+#'
+#' @details
+#' Function \code{qlspline} calculates the knot positions to be at quantiles of
+#' \code{x}. If \code{q} is a numerical scalar greater or equal to 2, the
+#' quantiles are computed at \code{seq(0, 1, length.out = q + 1)[-c(1, q+1)]},
+#' i.e. knots are at \code{q}-tiles of the distribution of \code{x}.
+#' Alternatively, \code{q} can be a vector of values in [0; 1] specifying the
+#' quantile probabilities directly (the vector is passed to argument
+#' \code{probs} of \code{\link{quantile}}).
+#'
+#' @export
+qlspline <- function(x, q, na.rm=FALSE, ...) {
+  if(length(q) == 1 && q >= 2) {
+    q <- seq(0, 1, length.out = q + 1)[-c(1, q+1)]
+  } else {
+    stopifnot(all(q > 0 & q < 1))
+  }
+  k <- quantile(x, probs = q, na.rm=na.rm)
+  lspline(x=x, knots=k, ...)
+}
+
+
+
+
+
+
+#' @rdname lspline
+#'
+#' @param n integer greater than 2, knots are computed such that they cut
+#'   \code{n} equally-spaced intervals along the range of \code{x}
+#'
+#' @details
+#' Function \code{elspline} computes the knots such that they cut the range of
+#' \code{x} into \code{n} equal width intervals.
+#'
+#' @export
+elspline <- function(x, n, ...) {
+  stopifnot(n >= 2)
+  k <- seq(min(x, na.rm = TRUE), max(x, na.rm=TRUE), length.out = n+1)[-c(1, n+1)]
+  lspline(x, knots = k, ...)
+}

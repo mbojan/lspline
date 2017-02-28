@@ -2,9 +2,15 @@
 % Please edit documentation in R/lspline.R
 \name{lspline}
 \alias{lspline}
+\alias{qlspline}
+\alias{elspline}
 \title{Basis for a piecewise linear spline}
 \usage{
 lspline(x, knots = NULL, marginal = FALSE, names = NULL)
+
+qlspline(x, q, na.rm = FALSE, ...)
+
+elspline(x, n, ...)
 }
 \arguments{
 \item{x}{numeric vector, the variable}
@@ -14,6 +20,18 @@ lspline(x, knots = NULL, marginal = FALSE, names = NULL)
 \item{marginal}{logical, how to parametrize the spline, see Details}
 
 \item{names}{character, vector of names for constructed variables}
+
+\item{q}{numeric, a single scalar greater or equal to 2 for a number of
+equal-frequency intervals along \code{x} or a vector of numbers in (0; 1) specifying
+the quantiles explicitely.}
+
+\item{na.rm}{logical, whether \code{NA} should be removed when calculating
+quantiles, passed to \code{na.rm} of \code{\link{quantile}}.}
+
+\item{...}{other arguments passed to \code{lspline}}
+
+\item{n}{integer greater than 2, knots are computed such that they cut
+\code{n} equally-spaced intervals along the range of \code{x}}
 }
 \description{
 Basis for a piecewise linear spline
@@ -24,6 +42,17 @@ to slopes of the consecutive segments. If it is \code{TRUE} the first
 coefficient correspond to the slope of the first segment. The consecutive
 coefficients correspond to the change in slope as compared to the previous
 segment.
+
+Function \code{qlspline} calculates the knot positions to be at quantiles of
+\code{x}. If \code{q} is a numerical scalar greater or equal to 2, the
+quantiles are computed at \code{seq(0, 1, length.out = q + 1)[-c(1, q+1)]},
+i.e. knots are at \code{q}-tiles of the distribution of \code{x}.
+Alternatively, \code{q} can be a vector of values in [0; 1] specifying the
+quantile probabilities directly (the vector is passed to argument
+\code{probs} of \code{\link{quantile}}).
+
+Function \code{elspline} computes the knots such that they cut the range of
+\code{x} into \code{n} equal width intervals.
 }
 \references{
 Junger & Ponce de Leon (2011) "ares: Environment air pollution epidemiology:
