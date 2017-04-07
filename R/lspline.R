@@ -129,6 +129,7 @@ elspline <- function(x, n, ...) {
 
 #' @importFrom stats makepredictcall
 #' @method makepredictcall lspline
+#' @export
 makepredictcall.lspline <- function(var, call) {
   if( !grepl("lspline$", as.character(call)[1L]) )
     return(call)
@@ -141,6 +142,7 @@ makepredictcall.lspline <- function(var, call) {
 
 #' @importFrom stats predict
 #' @method predict lspline
+#' @export
 predict.lspline <- function (object, newx, ...) {
   if (missing(newx))
     return(object)
