@@ -65,6 +65,7 @@ lspline <- function( x, knots=NULL, marginal=FALSE, names=NULL ) {
   structure(
     rval,
     knots = knots,
+    marginal = marginal,
     class = c("lspline", "matrix")
   )
 }
@@ -131,7 +132,7 @@ elspline <- function(x, n, ...) {
 makepredictall.lspline <- function(var, call) {
   if( as.character(call)[1L] != "lspline" )
     return(call)
-  at <- attributes(var)["knots"]
+  at <- attributes(var)[c("knots", "marginal")]
   xxx <- call[1L:2L]
   xxx[names(at)] <- at
   xxx
@@ -143,6 +144,6 @@ makepredictall.lspline <- function(var, call) {
 predict.lspline <- function (object, newx, ...) {
   if (missing(newx))
     return(object)
-  a <- c(list(x = newx), attributes(object)["knots"])
+  a <- c(list(x = newx), attributes(object)[c("knots", "marginal")])
   do.call("lspline", a)
 }
