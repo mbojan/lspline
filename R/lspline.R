@@ -43,8 +43,8 @@ lspline <- function( x, knots=NULL, marginal=FALSE, names=NULL ) {
   }
   n <- length(x)
   nvars <- length(knots) + 1
-  if( length(knots) > n/2)
-    stop("too many knots")
+  # if( length(knots) > n/2)
+  #   stop("too many knots")
   namex <- deparse(substitute(x))
   knots <- sort(knots)
   if(marginal) {
@@ -129,12 +129,13 @@ elspline <- function(x, n, ...) {
 # based on splines:::makepredictcall.bs
 #' @rdname lspline
 #' @export
-makepredictall.lspline <- function(var, call) {
-  if( as.character(call)[1L] != "lspline" )
+makepredictcall.lspline <- function(var, call) {
+  if( !grepl("lspline$", as.character(call)[1L]) )
     return(call)
   at <- attributes(var)[c("knots", "marginal")]
   xxx <- call[1L:2L]
   xxx[names(at)] <- at
+  xxx[1] <- quote(lspline())
   xxx
 }
 

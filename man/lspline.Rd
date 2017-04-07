@@ -4,7 +4,7 @@
 \alias{lspline}
 \alias{qlspline}
 \alias{elspline}
-\alias{makepredictall.lspline}
+\alias{makepredictcall.lspline}
 \alias{predict.lspline}
 \title{Basis for a piecewise linear spline with meaningful coefficients}
 \usage{
@@ -14,7 +14,7 @@ qlspline(x, q, na.rm = FALSE, ...)
 
 elspline(x, n, ...)
 
-makepredictall.lspline(var, call)
+\method{makepredictcall}{lspline}(var, call)
 
 \method{predict}{lspline}(object, newx, ...)
 }
