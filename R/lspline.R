@@ -91,6 +91,8 @@ lspline <- function( x, knots=NULL, marginal=FALSE, names=NULL ) {
 #' in [0; 1] specifying the quantile probabilities directly (the vector is
 #' passed to argument \code{probs} of \code{\link{quantile}}).
 #'
+#' @importFrom stats quantile
+#'
 #' @export
 qlspline <- function(x, q, na.rm=FALSE, ...) {
   if(length(q) == 1 && q >= 2) {
@@ -125,10 +127,8 @@ elspline <- function(x, n, ...) {
 
 
 
-
-# based on splines:::makepredictcall.bs
-#' @rdname lspline
-#' @export
+#' @importFrom stats makepredictcall
+#' @method makepredictcall lspline
 makepredictcall.lspline <- function(var, call) {
   if( !grepl("lspline$", as.character(call)[1L]) )
     return(call)
@@ -139,9 +139,8 @@ makepredictcall.lspline <- function(var, call) {
   xxx
 }
 
-# based on splines:::predict.bs
-#' @rdname lspline
-#' @export
+#' @importFrom stats predict
+#' @method predict lspline
 predict.lspline <- function (object, newx, ...) {
   if (missing(newx))
     return(object)
