@@ -4,6 +4,8 @@
 \alias{lspline}
 \alias{qlspline}
 \alias{elspline}
+\alias{makepredictall.lspline}
+\alias{predict.lspline}
 \title{Basis for a piecewise linear spline with meaningful coefficients}
 \usage{
 lspline(x, knots = NULL, marginal = FALSE, names = NULL)
@@ -11,6 +13,10 @@ lspline(x, knots = NULL, marginal = FALSE, names = NULL)
 qlspline(x, q, na.rm = FALSE, ...)
 
 elspline(x, n, ...)
+
+makepredictall.lspline(var, call)
+
+\method{predict}{lspline}(object, newx, ...)
 }
 \arguments{
 \item{x}{numeric vector, the variable}

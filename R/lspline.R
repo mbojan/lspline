@@ -62,7 +62,11 @@ lspline <- function( x, knots=NULL, marginal=FALSE, names=NULL ) {
       }
     }
   }
-  rval
+  structure(
+    rval,
+    knots = knots,
+    class = c("lspline", "matrix")
+  )
 }
 
 
@@ -116,4 +120,29 @@ elspline <- function(x, n, ...) {
   stopifnot(n >= 2)
   k <- seq(min(x, na.rm = TRUE), max(x, na.rm=TRUE), length.out = n+1)[-c(1, n+1)]
   lspline(x, knots = k, ...)
+}
+
+
+
+
+# based on splines:::makepredictcall.bs
+#' @rdname lspline
+#' @export
+makepredictall.lspline <- function(var, call) {
+  if( as.character(call)[1L] != "lspline" )
+    return(call)
+  at <- attributes(var)["knots"]
+  xxx <- call[1L:2L]
+  xxx[names(at)] <- at
+  xxx
+}
+
+# based on splines:::predict.bs
+#' @rdname lspline
+#' @export
+predict.lspline <- function (object, newx, ...) {
+  if (missing(newx))
+    return(object)
+  a <- c(list(x = newx), attributes(object)["knots"])
+  do.call("lspline", a)
 }
