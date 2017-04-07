@@ -1,24 +1,36 @@
+lspline: Linear Splines with Convinient Parametrizations
+================
 
-lspline
-=======
+-   [Examples](#examples)
+    -   [Setting knot locations manually](#setting-knot-locations-manually)
+    -   [Knots at `n` equal-length intervals](#knots-at-n-equal-length-intervals)
+    -   [Knots at `q`uantiles of `x`](#knots-at-quantiles-of-x)
+-   [Installation](#installation)
+-   [Acknowledgements](#acknowledgements)
 
 [![Build Status](https://travis-ci.org/mbojan/lspline.png?branch=master)](https://travis-ci.org/mbojan/lspline) [![Build Status](https://ci.appveyor.com/api/projects/status/lupt5o61rsqwqt97?svg=true)](https://ci.appveyor.com/project/mbojan/lspline) [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/lspline?color=2ED968)](http://cranlogs.r-pkg.org/) [![cran version](http://www.r-pkg.org/badges/version/lspline)](https://cran.r-project.org/package=lspline)
 
-Linear splines with parametrizations such that
+Linear splines with convinient parametrizations such that
 
 -   coefficients are slopes of consecutive segments
 -   coefficients capture slope change at consecutive knots
 
-Example
-=======
+Knot locations can be specified
 
-Let us generate some artificial data
+-   manually (`lspline()`)
+-   at breaks dividing the range of `x` into `q` equal-frequency intervals (`qlspline()`)
+-   at breaks dividing the range of `x` into `n` equal-width intervals (`elspline()`)
+
+Examples
+========
+
+Examples of using `lspline()`, `qlspline()`, and `elspline()`. We will use the following artificial data with knots at `x=5` and `x=10`
 
 ``` r
 set.seed(666)
 n <- 200
 d <- data.frame(
-  x = runif(n) * 20
+  x = scales::rescale(rchisq(n, 6), c(0, 20))
 )
 d$interval <- findInterval(d$x, c(5, 10), rightmost.closed = TRUE) + 1
 d$slope <- c(2, -3, 0)[d$interval]
@@ -26,77 +38,52 @@ d$intercept <- c(0, 25, -5)[d$interval]
 d$y <- with(d, intercept + slope * x + rnorm(n, 0, 1))
 ```
 
-Plotting `y` against `x`
+Plotting `y` against `x`:
 
 ``` r
 library(ggplot2)
-
-ggplot(d, aes(x=x, y=y)) + 
-  geom_point(aes(colour=as.character(slope))) +
-  scale_color_discrete(name="Slope")
+fig <- ggplot(d, aes(x=x, y=y)) + 
+  geom_point(aes(shape=as.character(slope))) +
+  scale_shape_discrete(name="Slope") +
+  theme_bw()
+fig
 ```
 
 ![](tools/show_data-1.png)
+
+The slopes of the consecutive segments are 2, -3, and 0.
+
+Setting knot locations manually
+-------------------------------
 
 We can parametrize the spline with slopes of individual segments (default `marginal=FALSE`):
 
 ``` r
 library(lspline)
 m1 <- lm(y ~ lspline(x, c(5, 10)), data=d)
-summary(m1)
-## 
-## Call:
-## lm(formula = y ~ lspline(x, c(5, 10)), data = d)
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.98836 -0.74341  0.00943  0.80606  2.36928 
-## 
-## Coefficients:
-##                        Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)           -0.562503   0.268264  -2.097   0.0373 *  
-## lspline(x, c(5, 10))1  2.185686   0.077773  28.103   <2e-16 ***
-## lspline(x, c(5, 10))2 -3.110708   0.056823 -54.744   <2e-16 ***
-## lspline(x, c(5, 10))3  0.003326   0.032048   0.104   0.9174    
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 1.056 on 196 degrees of freedom
-## Multiple R-squared:  0.9651, Adjusted R-squared:  0.9645 
-## F-statistic:  1804 on 3 and 196 DF,  p-value: < 2.2e-16
+knitr::kable(broom::tidy(m1))
 ```
+
+| term                  |    estimate|  std.error|    statistic|    p.value|
+|:----------------------|-----------:|----------:|------------:|----------:|
+| (Intercept)           |   0.1343204|  0.2148116|    0.6252941|  0.5325054|
+| lspline(x, c(5, 10))1 |   1.9435458|  0.0597698|   32.5171747|  0.0000000|
+| lspline(x, c(5, 10))2 |  -2.9666750|  0.0503967|  -58.8664832|  0.0000000|
+| lspline(x, c(5, 10))3 |  -0.0335289|  0.0518601|   -0.6465255|  0.5186955|
 
 Or parametrize with coeficients measuring change in slope (with `marginal=TRUE`):
 
 ``` r
 m2 <- lm(y ~ lspline(x, c(5,10), marginal=TRUE), data=d)
-summary(m2)
-## 
-## Call:
-## lm(formula = y ~ lspline(x, c(5, 10), marginal = TRUE), data = d)
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.98836 -0.74341  0.00943  0.80606  2.36928 
-## 
-## Coefficients:
-##                                        Estimate Std. Error t value
-## (Intercept)                            -0.56250    0.26826  -2.097
-## lspline(x, c(5, 10), marginal = TRUE)x  2.18569    0.07777  28.103
-## lspline(x, c(5, 10), marginal = TRUE)  -5.29639    0.12134 -43.648
-## lspline(x, c(5, 10), marginal = TRUE)   3.11403    0.08034  38.760
-##                                        Pr(>|t|)    
-## (Intercept)                              0.0373 *  
-## lspline(x, c(5, 10), marginal = TRUE)x   <2e-16 ***
-## lspline(x, c(5, 10), marginal = TRUE)    <2e-16 ***
-## lspline(x, c(5, 10), marginal = TRUE)    <2e-16 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 1.056 on 196 degrees of freedom
-## Multiple R-squared:  0.9651, Adjusted R-squared:  0.9645 
-## F-statistic:  1804 on 3 and 196 DF,  p-value: < 2.2e-16
+knitr::kable(broom::tidy(m2))
 ```
+
+| term                                   |    estimate|  std.error|    statistic|    p.value|
+|:---------------------------------------|-----------:|----------:|------------:|----------:|
+| (Intercept)                            |   0.1343204|  0.2148116|    0.6252941|  0.5325054|
+| lspline(x, c(5, 10), marginal = TRUE)x |   1.9435458|  0.0597698|   32.5171747|  0.0000000|
+| lspline(x, c(5, 10), marginal = TRUE)  |  -4.9102208|  0.0975908|  -50.3143597|  0.0000000|
+| lspline(x, c(5, 10), marginal = TRUE)  |   2.9331462|  0.0885445|   33.1262479|  0.0000000|
 
 The coefficients are
 
@@ -104,15 +91,87 @@ The coefficients are
 -   `lspline(x, c(5, 10), marginal = TRUE)` - the change in slope at knot *x* = 5; it is changing from 2 to -3, so by -5
 -   `lspline(x, c(5, 10), marginal = TRUE)` - tha change in slope at knot *x* = 10; it is changing from -3 to 0, so by 3
 
-The two parametrizations give obviously identical predicted values
+The two parametrizations (obviously) give identical predicted values:
 
 ``` r
 all.equal( fitted(m1), fitted(m2) )
 ## [1] TRUE
 ```
 
+graphically
+
+``` r
+fig +
+  geom_smooth(method="lm", formula=formula(m1), se=FALSE) +
+  geom_vline(xintercept = c(5, 10), linetype=2)
+```
+
+![](tools/lspline_fitted-1.png)
+
+Knots at `n` equal-length intervals
+-----------------------------------
+
+Function `elspline()` sets the knots at points dividing the range of `x` into `n` equal length intervals.
+
+``` r
+m3 <- lm(y ~ elspline(x, 3), data=d)
+d$f3 <- fitted(m3)
+knitr::kable(broom::tidy(m3))
+```
+
+| term            |    estimate|  std.error|   statistic|   p.value|
+|:----------------|-----------:|----------:|-----------:|---------:|
+| (Intercept)     |   3.5484817|  0.4603827|    7.707678|  0.00e+00|
+| elspline(x, 3)1 |   0.4652507|  0.1010200|    4.605529|  7.40e-06|
+| elspline(x, 3)2 |  -2.4908385|  0.1167867|  -21.328105|  0.00e+00|
+| elspline(x, 3)3 |   0.9475630|  0.2328691|    4.069080|  6.84e-05|
+
+Graphically
+
+``` r
+fig +
+  geom_smooth(aes(group=1), method="lm", formula=formula(m3), se=FALSE, n=200) +
+  geom_point(aes(y=f3), data=d)
+```
+
+![](tools/elspline-fitted-1.png)
+
+Knots at `q`uantiles of `x`
+---------------------------
+
+Function `qlspline()` sets the knots at points dividing the range of `x` into `q` equal-frequency intervals.
+
+``` r
+m4 <- lm(y ~ qlspline(x, 4), data=d)
+d$f4 <- fitted(m4)
+p <- data.frame(
+  x= seq(min(d$x), max(d$x), length=200)
+)
+p$y <- predict(m4, p)
+knitr::kable(broom::tidy(m4))
+```
+
+| term            |    estimate|  std.error|   statistic|    p.value|
+|:----------------|-----------:|----------:|-----------:|----------:|
+| (Intercept)     |   0.0782285|  0.3948061|    0.198144|  0.8431388|
+| qlspline(x, 4)1 |   2.0398804|  0.1802724|   11.315548|  0.0000000|
+| qlspline(x, 4)2 |   1.2675186|  0.1471270|    8.615132|  0.0000000|
+| qlspline(x, 4)3 |  -4.5846478|  0.1476810|  -31.044273|  0.0000000|
+| qlspline(x, 4)4 |  -0.4965858|  0.0572115|   -8.679818|  0.0000000|
+
+Graphically
+
+``` r
+fig +
+  geom_smooth(method="lm", formula=formula(m4), se=FALSE, n=200)
+```
+
+![](tools/qlspline-fitted-1.png)
+
 Installation
 ============
+
+Stable version from CRAN or development version from GitHub with
 
 ``` r
 devtools::install_github("mbojan/lspline")
@@ -121,6 +180,7 @@ devtools::install_github("mbojan/lspline")
 Acknowledgements
 ================
 
-Inspired by Stata command `mkspline` and function `ares::lspline` from Junger & Ponce de Leon (2011).
+Inspired by Stata command `mkspline` and function `ares::lspline` from Junger & Ponce de Leon (2011). As such, the implementation follow Greene (2003), chapter 7.5.2.
 
+-   Greene, William H. (2003) *Econometric analysis*. Pearson Education
 -   Junger & Ponce de Leon (2011) *`ares`: Environment air pollution epidemiology: a library for timeseries analysis*. R package version 0.7.2 retrieved from CRAN archives.

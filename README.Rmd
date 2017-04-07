@@ -146,9 +146,7 @@ Graphically
 
 ```{r qlspline-fitted}
 fig +
-  geom_smooth(method="lm", formula=formula(m4), se=FALSE, n=200) +
-  geom_point(aes(x=x, y=f4), col="red", data=d) +
-  geom_point(aes(x=x, y=y), col="green", data=p)
+  geom_smooth(method="lm", formula=formula(m4), se=FALSE, n=200)
 ```
 
 ```{r, eval=FALSE, include=FALSE}
