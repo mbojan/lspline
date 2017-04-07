@@ -58,6 +58,8 @@ Function \code{elspline} wraps \code{lspline} and computes the knot positions
 such that they cut the range of \code{x} into \code{n} equal-width intervals.
 }
 \references{
+Greene, William H. (2003) Econometric analysis. Pearson Education
+
 Junger & Ponce de Leon (2011) "ares: Environment air pollution epidemiology:
 a library for timeseries analysis". R package version 0.7.2 retrieved from
 CRAN archives.
@@ -66,6 +68,8 @@ CRAN archives.
 See the package vignette.
 }
 \author{
-This function is inspired by Stata command \code{mkspline} and function
-\code{ares::lspline} from Junger & Ponce de Leon (2011).
+This function is inspired by Stata command \code{mkspline}
+and function \code{ares::lspline} from Junger & Ponce de
+Leon (2011). As such, the implementation follows Greene
+(2003), chapter 7.2.5
 }
