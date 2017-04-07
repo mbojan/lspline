@@ -5,7 +5,7 @@ output: github_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
   collapse=TRUE,
-  fig.path = "README-"
+  fig.path = "tools/"
   )
 ```
 
