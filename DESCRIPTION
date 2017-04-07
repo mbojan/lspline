@@ -1,7 +1,7 @@
 Package: lspline
 Type: Package
 Title: Piecewise-linear splines
-Version: 0.1-0
+Version: 1.0-0
 Description: Piecewise-linear splines using different parametrizatons.
 Suggests: testthat, knitr
 License: MIT + file LICENSE
