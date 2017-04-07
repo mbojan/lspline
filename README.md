@@ -115,7 +115,6 @@ Function `elspline()` sets the knots at points dividing the range of `x` into `n
 
 ``` r
 m3 <- lm(y ~ elspline(x, 3), data=d)
-d$f3 <- fitted(m3)
 knitr::kable(broom::tidy(m3))
 ```
 
@@ -130,8 +129,7 @@ Graphically
 
 ``` r
 fig +
-  geom_smooth(aes(group=1), method="lm", formula=formula(m3), se=FALSE, n=200) +
-  geom_point(aes(y=f3), data=d)
+  geom_smooth(aes(group=1), method="lm", formula=formula(m3), se=FALSE, n=200)
 ```
 
 ![](tools/elspline-fitted-1.png)
@@ -143,11 +141,6 @@ Function `qlspline()` sets the knots at points dividing the range of `x` into `q
 
 ``` r
 m4 <- lm(y ~ qlspline(x, 4), data=d)
-d$f4 <- fitted(m4)
-p <- data.frame(
-  x= seq(min(d$x), max(d$x), length=200)
-)
-p$y <- predict(m4, p)
 knitr::kable(broom::tidy(m4))
 ```
 
@@ -174,13 +167,13 @@ Installation
 Stable version from CRAN or development version from GitHub with
 
 ``` r
-devtools::install_github("mbojan/lspline")
+devtools::install_github("mbojan/lspline", build_vignettes=TRUE)
 ```
 
 Acknowledgements
 ================
 
-Inspired by Stata command `mkspline` and function `ares::lspline` from Junger & Ponce de Leon (2011). As such, the implementation follow Greene (2003), chapter 7.5.2.
+Inspired by Stata command `mkspline` and function `ares::lspline` from Junger & Ponce de Leon (2011). As such, the implementation follows Greene (2003), chapter 7.5.2.
 
 -   Greene, William H. (2003) *Econometric analysis*. Pearson Education
 -   Junger & Ponce de Leon (2011) *`ares`: Environment air pollution epidemiology: a library for timeseries analysis*. R package version 0.7.2 retrieved from CRAN archives.
