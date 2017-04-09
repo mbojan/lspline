@@ -1,4 +1,4 @@
-lspline: Linear Splines with Convinient Parametrizations
+lspline: Linear Splines with Convenient Parametrisations
 ================
 
 -   [Examples](#examples)
@@ -10,7 +10,7 @@ lspline: Linear Splines with Convinient Parametrizations
 
 [![Build Status](https://travis-ci.org/mbojan/lspline.png?branch=master)](https://travis-ci.org/mbojan/lspline) [![Build Status](https://ci.appveyor.com/api/projects/status/lupt5o61rsqwqt97?svg=true)](https://ci.appveyor.com/project/mbojan/lspline) [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/lspline?color=2ED968)](http://cranlogs.r-pkg.org/) [![cran version](http://www.r-pkg.org/badges/version/lspline)](https://cran.r-project.org/package=lspline)
 
-Linear splines with convinient parametrizations such that
+Linear splines with convenient parametrisations such that
 
 -   coefficients are slopes of consecutive segments
 -   coefficients capture slope change at consecutive knots
@@ -49,7 +49,7 @@ fig <- ggplot(d, aes(x=x, y=y)) +
 fig
 ```
 
-![](vignettes/lspline-show_data-1.png)
+![](tools/lspline-show_data-1.png)
 
 The slopes of the consecutive segments are 2, -3, and 0.
 
@@ -81,17 +81,17 @@ knitr::kable(broom::tidy(m2))
 | term                                   |    estimate|  std.error|    statistic|    p.value|
 |:---------------------------------------|-----------:|----------:|------------:|----------:|
 | (Intercept)                            |   0.1343204|  0.2148116|    0.6252941|  0.5325054|
-| lspline(x, c(5, 10), marginal = TRUE)x |   1.9435458|  0.0597698|   32.5171747|  0.0000000|
-| lspline(x, c(5, 10), marginal = TRUE)  |  -4.9102208|  0.0975908|  -50.3143597|  0.0000000|
-| lspline(x, c(5, 10), marginal = TRUE)  |   2.9331462|  0.0885445|   33.1262479|  0.0000000|
+| lspline(x, c(5, 10), marginal = TRUE)1 |   1.9435458|  0.0597698|   32.5171747|  0.0000000|
+| lspline(x, c(5, 10), marginal = TRUE)2 |  -4.9102208|  0.0975908|  -50.3143597|  0.0000000|
+| lspline(x, c(5, 10), marginal = TRUE)3 |   2.9331462|  0.0885445|   33.1262479|  0.0000000|
 
 The coefficients are
 
--   `lspline(x, c(5, 10), marginal = TRUE)x` - the slope of the first segment
--   `lspline(x, c(5, 10), marginal = TRUE)` - the change in slope at knot *x* = 5; it is changing from 2 to -3, so by -5
--   `lspline(x, c(5, 10), marginal = TRUE)` - tha change in slope at knot *x* = 10; it is changing from -3 to 0, so by 3
+-   `lspline(x, c(5, 10), marginal = TRUE)1` - the slope of the first segment
+-   `lspline(x, c(5, 10), marginal = TRUE)2` - the change in slope at knot *x* = 5; it is changing from 2 to -3, so by -5
+-   `lspline(x, c(5, 10), marginal = TRUE)3` - tha change in slope at knot *x* = 10; it is changing from -3 to 0, so by 3
 
-The two parametrizations (obviously) give identical predicted values:
+The two parametrisations (obviously) give identical predicted values:
 
 ``` r
 all.equal( fitted(m1), fitted(m2) )
@@ -106,7 +106,7 @@ fig +
   geom_vline(xintercept = c(5, 10), linetype=2)
 ```
 
-![](vignettes/lspline-lspline_fitted-1.png)
+![](tools/lspline-lspline_fitted-1.png)
 
 Knots at `n` equal-length intervals
 -----------------------------------
@@ -132,7 +132,7 @@ fig +
   geom_smooth(aes(group=1), method="lm", formula=formula(m3), se=FALSE, n=200)
 ```
 
-![](vignettes/lspline-elspline-fitted-1.png)
+![](tools/lspline-elspline-fitted-1.png)
 
 Knots at `q`uantiles of `x`
 ---------------------------
@@ -159,7 +159,7 @@ fig +
   geom_smooth(method="lm", formula=formula(m4), se=FALSE, n=200)
 ```
 
-![](vignettes/lspline-qlspline-fitted-1.png)
+![](tools/lspline-qlspline-fitted-1.png)
 
 Installation
 ============
