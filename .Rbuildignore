@@ -4,4 +4,4 @@
 ^README-.*\.png$
 ^\.travis\.yml$
 ^appveyor\.yml$
-Makefile
+^Makefile$
