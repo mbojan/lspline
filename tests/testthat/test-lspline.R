@@ -12,6 +12,8 @@ test_that("it works for marginal=TRUE", {
     m1 <- lm(y ~ lspline(x, c(5), marginal=TRUE), data=d)
   )
   expect_equivalent( coef(m1), c(6, -1, 2) )
+  expect_equal( attr(m1$model$`lspline(x, c(5), marginal = TRUE)`, "knots"), 5 )
+  expect_equal( attr(m1$model$`lspline(x, c(5), marginal = TRUE)`, "marginal"), TRUE )
 })
 
 
@@ -20,6 +22,8 @@ test_that("it works for marginal=FALSE", {
     m2 <- lm(y ~ lspline(x, c(5), marginal=FALSE), data=d)
   )
   expect_equivalent(coef(m2), c(6, -1, 1) )
+  expect_equal( attr(m2$model$`lspline(x, c(5), marginal = TRUE)`, "knots"), 5 )
+  expect_equal( attr(m2$model$`lspline(x, c(5), marginal = TRUE)`, "marginal"), FALSE )
 })
 
 
@@ -38,8 +42,6 @@ test_that("fitted values are identical whatever the `marginal`", {
 
 
 context("lspline() predicting")
-
-
 
 test_that("in-data predictions are correct", {
   expect_silent(
