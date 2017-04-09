@@ -62,6 +62,7 @@ lspline <- function( x, knots=NULL, marginal=FALSE, names=NULL ) {
       }
     }
   }
+  colnames(rval) <- seq(1, ncol(rval))
   structure(
     rval,
     knots = knots,
