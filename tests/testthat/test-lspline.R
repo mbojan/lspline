@@ -10,7 +10,7 @@ d <- data.frame(
 test_that("it works for marginal=TRUE", {
   expect_silent(
     m1 <- lm(y ~ lspline(x, c(5), marginal=TRUE), data=d)
-    )
+  )
   expect_equivalent( coef(m1), c(6, -1, 2) )
 })
 
@@ -24,7 +24,13 @@ test_that("it works for marginal=FALSE", {
 
 
 test_that("fitted values are identical whatever the `marginal`", {
-  expect_identical( fitted(m1), fitted(m2) )
+  expect_silent(
+    m1 <- lm(y ~ lspline(x, c(5), marginal=TRUE), data=d)
+  )
+  expect_silent(
+    m2 <- lm(y ~ lspline(x, c(5), marginal=FALSE), data=d)
+  )
+  expect_equal( fitted(m1), fitted(m2) )
 })
 
 
@@ -36,7 +42,10 @@ context("lspline() predicting")
 
 
 test_that("in-data predictions are correct", {
-  expect_equvalent(
+  expect_silent(
+    m1 <- lm(y ~ lspline(x, c(5), marginal=TRUE), data=d)
+  )
+  expect_equivalent(
     predict(m1, data.frame(x=5:10)),
     1:6
   )
@@ -44,7 +53,10 @@ test_that("in-data predictions are correct", {
     predict(m1, data.frame(x=1:5)),
     5:1
   )
-  expect_equvalent(
+  expect_silent(
+    m2 <- lm(y ~ lspline(x, c(5), marginal=FALSE), data=d)
+  )
+  expect_equivalent(
     predict(m2, data.frame(x=5:10)),
     1:6
   )
@@ -52,6 +64,4 @@ test_that("in-data predictions are correct", {
     predict(m2, data.frame(x=1:5)),
     5:1
   )
-
-
 })
