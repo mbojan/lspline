@@ -1,17 +1,20 @@
 ---
 title: "lspline: Linear Splines with Convinient Parametrizations"
+params:
+  figpath: "lspline-"
 output: 
   html_vignette:
     toc: true
   github_document:
     toc: true
+    html_preview: false
 ---
 
 ```{r setup, include=FALSE, cache=FALSE}
 knitr::opts_chunk$set(
   cache=FALSE,
   collapse=TRUE,
-  fig.path = "lspline-"
+  fig.path = params$figpath
   )
 ```
 
