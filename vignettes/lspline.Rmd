@@ -1,6 +1,8 @@
 ---
 title: "lspline: Linear Splines with Convinient Parametrizations"
 output: 
+  html_vignette:
+    toc: true
   github_document:
     toc: true
 ---
@@ -9,7 +11,7 @@ output:
 knitr::opts_chunk$set(
   cache=FALSE,
   collapse=TRUE,
-  fig.path = "tools/"
+  fig.path = "lspline-"
   )
 ```
 
