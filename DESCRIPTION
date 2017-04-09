@@ -1,8 +1,11 @@
 Package: lspline
 Type: Package
-Title: Piecewise-linear splines
+Title: Linear Splines with Convinient Parametrizations
 Version: 1.0-0
-Description: Piecewise-linear splines using different parametrizatons.
+Description: Linear splines with convinient parametrizations such that 
+  (1) coefficients are slopes of consecutive segments or (2) coefficients are 
+  slope changes at consecutive knots. Knots can be set manually or at break points
+  of equal-frequency or equal-width intervals covering the range of 'x'.
 Suggests: testthat, knitr
 License: MIT + file LICENSE
 Encoding: UTF-8
