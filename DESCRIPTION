@@ -1,8 +1,8 @@
 Package: lspline
 Type: Package
-Title: Linear Splines with Convinient Parametrizations
+Title: Linear Splines with Convenient Parametrisations
 Version: 1.0-0
-Description: Linear splines with convinient parametrizations such that 
+Description: Linear splines with convenient parametrisations such that 
   (1) coefficients are slopes of consecutive segments or (2) coefficients are 
   slope changes at consecutive knots. Knots can be set manually or at break points
   of equal-frequency or equal-width intervals covering the range of 'x'.
