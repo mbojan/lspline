@@ -1,6 +1,11 @@
 default: README.md
 
 README.md: vignettes/lspline.Rmd
-		Rscript -e "rmarkdown::render('$<', output_format='rmarkdown::github_document', output_file='$@')"
+		cp vignettes/lspline.Rmd README.Rmd
+		Rscript -e "rmarkdown::render('README.Rmd', output_format='github_document', output_file='README.md', params=list(figpath='vignettes/lspline-'))"
+		rm README.Rmd
 
-.PHONY: default
+test:
+		Rscript -e "getwd()"
+
+.PHONY: default test
