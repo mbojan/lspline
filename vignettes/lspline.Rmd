@@ -8,6 +8,10 @@ output:
   github_document:
     toc: true
     html_preview: false
+vignette: >
+  %\VignetteIndexEntry{lspline}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE, cache=FALSE}
@@ -18,10 +22,15 @@ knitr::opts_chunk$set(
   )
 ```
 
+```{r badges, echo=FALSE, results="asis", eval=knitr::opts_knit$get("rmarkdown.pandoc.to") == "markdown_github"}
+cat("
 [![Build Status](https://travis-ci.org/mbojan/lspline.png?branch=master)](https://travis-ci.org/mbojan/lspline)
 [![Build Status](https://ci.appveyor.com/api/projects/status/lupt5o61rsqwqt97?svg=true)](https://ci.appveyor.com/project/mbojan/lspline)
 [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/lspline?color=2ED968)](http://cranlogs.r-pkg.org/)
 [![cran version](http://www.r-pkg.org/badges/version/lspline)](https://cran.r-project.org/package=lspline)
+    ")
+```
+
 
 
 Linear splines with convinient parametrizations such that

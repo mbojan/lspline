@@ -7,7 +7,6 @@ lspline: Linear Splines with Convinient Parametrizations
     -   [Knots at `q`uantiles of `x`](#knots-at-quantiles-of-x)
 -   [Installation](#installation)
 -   [Acknowledgements](#acknowledgements)
--   [Appendix](#appendix)
 
 [![Build Status](https://travis-ci.org/mbojan/lspline.png?branch=master)](https://travis-ci.org/mbojan/lspline) [![Build Status](https://ci.appveyor.com/api/projects/status/lupt5o61rsqwqt97?svg=true)](https://ci.appveyor.com/project/mbojan/lspline) [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/lspline?color=2ED968)](http://cranlogs.r-pkg.org/) [![cran version](http://www.r-pkg.org/badges/version/lspline)](https://cran.r-project.org/package=lspline)
 
@@ -178,41 +177,3 @@ Inspired by Stata command `mkspline` and function `ares::lspline` from Junger & 
 
 -   Greene, William H. (2003) *Econometric analysis*. Pearson Education
 -   Junger & Ponce de Leon (2011) *`ares`: Environment air pollution epidemiology: a library for timeseries analysis*. R package version 0.7.2 retrieved from CRAN archives.
-
-Appendix
-========
-
-``` r
-knitr::opts_knit$get("root.dir")
-## NULL
-sessionInfo()
-## R version 3.3.3 (2017-03-06)
-## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 14.04.5 LTS
-## 
-## locale:
-##  [1] LC_CTYPE=en_GB.UTF-8       LC_NUMERIC=C              
-##  [3] LC_TIME=en_GB.UTF-8        LC_COLLATE=en_GB.UTF-8    
-##  [5] LC_MONETARY=en_GB.UTF-8    LC_MESSAGES=en_GB.UTF-8   
-##  [7] LC_PAPER=en_GB.UTF-8       LC_NAME=C                 
-##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-## [11] LC_MEASUREMENT=en_GB.UTF-8 LC_IDENTIFICATION=C       
-## 
-## attached base packages:
-## [1] stats     graphics  grDevices utils     datasets  base     
-## 
-## other attached packages:
-## [1] lspline_1.0-0 ggplot2_2.2.1
-## 
-## loaded via a namespace (and not attached):
-##  [1] Rcpp_0.12.10     knitr_1.15.1     magrittr_1.5     mnormt_1.5-5    
-##  [5] munsell_0.4.3    lattice_0.20-35  colorspace_1.3-2 R6_2.2.0        
-##  [9] highr_0.6        stringr_1.2.0    plyr_1.8.4       dplyr_0.5.0     
-## [13] tools_3.3.3      parallel_3.3.3   grid_3.3.3       nlme_3.1-131    
-## [17] broom_0.4.2      gtable_0.2.0     psych_1.7.3.21   DBI_0.6-1       
-## [21] htmltools_0.3.5  assertthat_0.1   yaml_2.1.14      lazyeval_0.2.0  
-## [25] rprojroot_1.2    digest_0.6.12    tibble_1.3.0     tidyr_0.6.1     
-## [29] reshape2_1.4.2   evaluate_0.10    rmarkdown_1.4    labeling_0.3    
-## [33] stringi_1.1.5    methods_3.3.3    scales_0.4.1     backports_1.0.5 
-## [37] foreign_0.8-67
-```
