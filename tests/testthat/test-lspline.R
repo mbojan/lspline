@@ -22,8 +22,8 @@ test_that("it works for marginal=FALSE", {
     m2 <- lm(y ~ lspline(x, c(5), marginal=FALSE), data=d)
   )
   expect_equivalent(coef(m2), c(6, -1, 1) )
-  expect_equal( attr(m2$model$`lspline(x, c(5), marginal = TRUE)`, "knots"), 5 )
-  expect_equal( attr(m2$model$`lspline(x, c(5), marginal = TRUE)`, "marginal"), FALSE )
+  expect_equal( attr(m2$model$`lspline(x, c(5), marginal = FALSE)`, "knots"), 5 )
+  expect_equal( attr(m2$model$`lspline(x, c(5), marginal = FALSE)`, "marginal"), FALSE )
 })
 
 
