@@ -1,5 +1,5 @@
 ---
-title: "lspline: Linear Splines with Convinient Parametrizations"
+title: "lspline: Linear Splines with Convenient Parametrisations"
 params:
   figpath: "lspline-"
 output: 
@@ -33,7 +33,7 @@ cat("
 
 
 
-Linear splines with convinient parametrizations such that
+Linear splines with convenient parametrisations such that
 
 - coefficients are slopes of consecutive segments
 - coefficients capture slope change at consecutive knots
@@ -104,7 +104,7 @@ The coefficients are
 - ``r nam[3]`` - the change in slope at knot $x=5$; it is changing from 2 to -3, so by -5
 - ``r nam[4]`` - tha change in slope at knot $x=10$; it is changing from -3 to 0, so by 3
 
-The two parametrizations (obviously) give identical predicted values:
+The two parametrisations (obviously) give identical predicted values:
 
 ```{r same-fitted}
 all.equal( fitted(m1), fitted(m2) )
