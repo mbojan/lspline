@@ -27,15 +27,55 @@
 #' (2003), chapter 7.2.5
 #'
 #' @references
-#' Greene, William H. (2003) Econometric analysis. Pearson Education
 #'
-#' Junger & Ponce de Leon (2011) "ares: Environment air pollution epidemiology:
-#' a library for timeseries analysis". R package version 0.7.2 retrieved from
-#' CRAN archives.
+#' \itemize{
+#' \item Poirier, Dale J., and Steven G. Garber. (1974) "The Determinants of Aerospace Profit Rates 1951-1971." Southern Economic Journal: 228-238.
+#' \item Greene, William H. (2003) Econometric analysis. Pearson Education
+#' \item Junger & Ponce de Leon (2011) "ares: Environment air pollution epidemiology: a library for timeseries analysis". R package version 0.7.2 retrieved from CRAN archives.
+#' }
+#'
+#' @examples
+#' # Data from a quadratic polynomial
+#' set.seed(666)
+#' x <- rnorm(100, 5, 2)
+#' y <- (x-5)^2 + rnorm(100)
+#' plot(x, y)
+#'
+#' # -- Marginal and non-marginal parametrisations
+#' m.nonmarginal <- lm(y ~ lspline(x, 5))
+#' m.marginal <- lm(y ~ lspline(x, 5, marginal=TRUE))
+#' # Slope of consecutive segments
+#' coef(m.nonmarginal)
+#' # Slope change and consecutive knots
+#' coef(m.marginal)
+#' # Identical predicted values
+#' identical( fitted(m.nonmarginal), fitted(m.marginal))
+#'
+#'
+#' # -- Different ways to place knots
+#' # Manually: knots at x=4 and x=6
+#' m1 <- lm(y ~ lspline(x, c(4, 6)))
+#' # 2 knots at terciles of 'x'
+#' m2 <- lm(y ~ qlspline(x, 3))
+#' # 3 knots dividing range of 'x' into 4 equal-width intervals
+#' m3 <- lm(y ~ elspline(x, 4))
+#'
+#' # Graphically
+#' ox <- seq(min(x), max(x), length=100)
+#' lines(ox, predict(m1, data.frame(x=ox)), col="red")
+#' lines(ox, predict(m2, data.frame(x=ox)), col="blue")
+#' lines(ox, predict(m3, data.frame(x=ox)), col="green")
+#' legend("topright",
+#'   legend=c("m1: lspline", "m2: qlspline", "m3: elspline"),
+#'   col=c("red", "blue", "green"),
+#'   bty="n", lty=1)
+#'
+#'
 #'
 #'
 #'
 #' @export
+
 
 lspline <- function( x, knots=NULL, marginal=FALSE, names=NULL ) {
   if(!is.null(names)) {
