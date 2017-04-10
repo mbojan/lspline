@@ -6,6 +6,7 @@ Description: Linear splines with convenient parametrisations such that
   (1) coefficients are slopes of consecutive segments or (2) coefficients are 
   slope changes at consecutive knots. Knots can be set manually or at break points
   of equal-frequency or equal-width intervals covering the range of 'x'.
+  The implementation follows Greene (2003), chapter 7.2.5.
 Suggests: testthat, knitr, rmarkdown, scales, ggplot2, broom
 License: MIT + file LICENSE
 Encoding: UTF-8
