@@ -18,22 +18,12 @@ knitr::opts_chunk$set(
 )
 ```
 
-Linear splines with convenient parameterizations such that
 
-- coefficients are slopes of consecutive segments
-- coefficients capture slope change at consecutive knots
-
-Knot locations can be specified
-
-- manually (`lspline()`)
-- at breaks dividing the range of `x` into `q` equal-frequency intervals (`qlspline()`)
-- at breaks dividing the range of `x` into `n` equal-width intervals (`elspline()`)
+Here are some examples of using `lspline()`, `qlspline()`, and `elspline()`.
 
 
+# Generate example data
 
-# Examples
-
-Examples of using `lspline()`, `qlspline()`, and `elspline()`.
 We will use the following artificial data with knots at `x=5` and `x=10`
 
 ```{r data}
