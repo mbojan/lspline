@@ -6,3 +6,6 @@
 ^appveyor\.yml$
 Makefile
 ^\.github$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
