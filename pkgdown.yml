@@ -1,0 +1,10 @@
+pandoc: 2.19.2
+pkgdown: 2.0.6
+pkgdown_sha: ~
+articles:
+  lspline: lspline.html
+last_built: 2022-11-12T17:55Z
+urls:
+  reference: https://mbojan.github.io/lspline/reference
+  article: https://mbojan.github.io/lspline/articles
+
