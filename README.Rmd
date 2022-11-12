@@ -57,7 +57,89 @@ See package [homepage](https://mbojan.github.io/lspline/) and the [vignette](htt
 
 
 ```{r logo, include=FALSE, eval=FALSE}
-library(hexSticker)
+# library(hexSticker)
+library(tidyverse)
+library(ggforce)
+d1 <- tibble::tribble(
+  ~x, ~y,
+  0, 0,
+  4, 1, # b = 1/4
+  8, -1, # b = 1/2
+  10, 2 # b = 3
+) 
+d2 <- tibble::tribble(
+  ~x, ~y,
+  4, 1,
+  6, 1.5
+)
+d3 <- tibble::tribble(
+  ~x, ~y,
+  8, -1,
+  10, -2,
+)
+
+arcs <- tibble::tribble(
+  ~x0, ~y0, ~r, ~start, ~end,
+  4, 1, 0.5, pi/2 - atan(1/4), pi/2 + atan(1/2),
+  8, -1, 0.5, pi/2 - atan(3/2), pi/2 + atan(1/2)
+)
+
+d1 |>
+  ggplot() +
+  geom_line(aes(x=x, y=y), data = d1, linetype = "solid") +
+  geom_line(aes(x=x, y=y), data = d2, linetype = "dotted") +
+  geom_line(aes(x=x, y=y), data = d3, linetype = "dotted") +
+  geom_arc(aes(x0 = x0, y0 = y0, r = r, start = start, end = end),
+           data = arcs) +
+  coord_fixed()
+
+
+d <- tibble(
+  y = c(0, 2, 1, 1.5),
+  x = seq(along = y)
+)
+
+ggplot() +
+  geom_line(aes(x=x, y=y), data = d, linetype = "solid") +
+  coord_fixed()
+  
+
+
+d <- tibble::tribble(
+  ~x, ~y,
+  0, 0,
+  2, 2,
+  3, 3,
+  5, 1,
+  6, 0
+) |>
+  map(embed, 2) |>
+  imap(~ structure(.x, dimnames=list(NULL, paste0(.y, c('end', ''))))) |>
+  map(as_tibble) |>
+  bind_cols() |>
+  mutate(
+    lt = rep(c("s", "d"), length = 4)
+  )
+  
+d |>
+  ggplot(aes(x=x, y=y, xend=xend, yend=yend)) +
+  geom_segment(data = filter(d, lt == "s")) +
+  scale_linetype_manual(
+    breaks = c("s", "d"),
+    values = c("solid", "dotted"),
+    guide = "none"
+  )
+
+tibble::tribble(
+  ~x, ~y, ~s,
+  0, 0, "s",
+  2, 2, "s",
+  3, 3, "d",
+  4, 4, "d"
+) |>
+  ggplot(aes(x = x, y = y, group = NULL)) +
+  geom_line(aes(linetype = s))
+
 ```
 
 
