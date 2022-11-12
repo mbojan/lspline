@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
   )
 ```
 
-```{r badges, echo=FALSE, results="asis", eval=knitr::opts_knit$get("rmarkdown.pandoc.to") == "markdown_github"}
+```{r badges, echo=FALSE, results="asis", eval = grepl("gfm", knitr::opts_knit$get("rmarkdown.pandoc.to"))}
 cat("
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/mbojan/lspline/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mbojan/lspline/actions/workflows/R-CMD-check.yaml)

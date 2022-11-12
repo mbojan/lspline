@@ -15,6 +15,15 @@ lspline: Linear Splines with Convenient Parametrisations
 -   <a href="#acknowledgements"
     id="toc-acknowledgements">Acknowledgements</a>
 
+<!-- badges: start -->
+
+[![R-CMD-check](https://github.com/mbojan/lspline/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mbojan/lspline/actions/workflows/R-CMD-check.yaml)
+[![rstudio mirror
+downloads](http://cranlogs.r-pkg.org/badges/lspline?color=2ED968)](http://cranlogs.r-pkg.org/)
+[![cran
+version](http://www.r-pkg.org/badges/version/lspline)](https://cran.r-project.org/package=lspline)
+<!-- badges: end -->
+
 Linear splines with convenient parametrisations such that
 
 -   coefficients are slopes of consecutive segments
