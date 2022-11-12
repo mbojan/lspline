@@ -1,12 +1,12 @@
 ---
-title: "Using `lspline`"
+title: "Fitting linear splines"
 output: 
   rmarkdown::html_vignette:
     toc: true
 editor_options: 
   chunk_output_type: console
 vignette: >
-  %\VignetteIndexEntry{lspline}
+  %\VignetteIndexEntry{Fitting linear splines}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
