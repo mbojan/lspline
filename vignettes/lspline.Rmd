@@ -26,7 +26,7 @@ Here are some examples of using `lspline()`, `qlspline()`, and `elspline()`.
 
 We will use the following artificial data with knots at `x=5` and `x=10`
 
-```{r data}
+```{r data-generate}
 set.seed(666)
 n <- 200
 d <- data.frame(
@@ -40,11 +40,11 @@ d$y <- with(d, intercept + slope * x + rnorm(n, 0, 1))
 
 Plotting `y` against `x`:
 
-```{r show_data}
+```{r data-plot}
 library(ggplot2)
 fig <- ggplot(d, aes(x=x, y=y)) + 
-  geom_point(aes(shape=as.character(slope))) +
-  scale_shape_discrete(name="Slope") +
+  geom_point(aes(color=as.character(slope))) +
+  scale_color_discrete(name="Slope") +
   theme_bw()
 fig
 ```
@@ -54,11 +54,11 @@ The slopes of the consecutive segments are 2, -3, and 0.
 
 
 
-## Setting knot locations manually
+# Setting knot locations manually
 
 We can parametrize the spline with slopes of individual segments (default `marginal=FALSE`):
 
-```{r lspline_nonmarginal}
+```{r lspline-nonmarginal}
 library(lspline)
 m1 <- lm(y ~ lspline(x, c(5, 10)), data=d)
 knitr::kable(broom::tidy(m1))
@@ -66,7 +66,7 @@ knitr::kable(broom::tidy(m1))
 
 Or parametrize with coeficients measuring change in slope (with `marginal=TRUE`):
 
-```{r rspline_marginal, echo=1:2}
+```{r lspline-marginal, echo=1:2}
 m2 <- lm(y ~ lspline(x, c(5,10), marginal=TRUE), data=d)
 knitr::kable(broom::tidy(m2))
 k <- coef(m2)
@@ -87,16 +87,16 @@ all.equal( fitted(m1), fitted(m2) )
 
 graphically
 
-```{r lspline_fitted}
+```{r lspline-fitted}
 fig +
-  geom_smooth(method="lm", formula=formula(m1), se=FALSE) +
+  geom_smooth(method="lm", formula=formula(m1), se=FALSE, color = "black") +
   geom_vline(xintercept = c(5, 10), linetype=2)
 ```
 
 
 
 
-## Knots at `n` equal-length intervals
+# Knots at `n` equal-length intervals
 
 Function `elspline()` sets the knots at points dividing the range of `x` into `n` equal length intervals.
 
@@ -109,13 +109,14 @@ Graphically
 
 ```{r elspline-fitted}
 fig +
-  geom_smooth(aes(group=1), method="lm", formula=formula(m3), se=FALSE, n=200)
+  geom_smooth(method="lm", formula=formula(m3), se=FALSE, n=200,
+              color = "black")
 ```
 
 
 
 
-## Knots at `q`uantiles of `x`
+# Knots at `q`uantiles of `x`
 
 Function `qlspline()` sets the knots at points dividing the range of `x` into `q` equal-frequency intervals.
 
@@ -128,5 +129,6 @@ Graphically
 
 ```{r qlspline-fitted}
 fig +
-  geom_smooth(method="lm", formula=formula(m4), se=FALSE, n=200)
+  geom_smooth(method="lm", formula=formula(m4), se=FALSE, n=200, 
+              color = "black")
 ```
