@@ -3,7 +3,7 @@ pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
   lspline: lspline.html
-last_built: 2022-11-12T19:19Z
+last_built: 2022-11-12T23:35Z
 urls:
   reference: https://mbojan.github.io/lspline/reference
   article: https://mbojan.github.io/lspline/articles
