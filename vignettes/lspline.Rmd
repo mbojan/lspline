@@ -1,13 +1,10 @@
 ---
-title: "`lspline`: Linear Splines with Convenient Parametrisations"
-params:
-  figpath: "lspline-"
+title: "Using `lspline`"
 output: 
-  html_vignette:
+  rmarkdown::html_vignette:
     toc: true
-  github_document:
-    toc: true
-    html_preview: false
+editor_options: 
+  chunk_output_type: console
 vignette: >
   %\VignetteIndexEntry{lspline}
   %\VignetteEngine{knitr::rmarkdown}
@@ -17,24 +14,11 @@ vignette: >
 ```{r setup, include=FALSE, cache=FALSE}
 knitr::opts_chunk$set(
   cache=FALSE,
-  collapse=TRUE,
-  fig.path = params$figpath
-  )
+  collapse=TRUE
+)
 ```
 
-```{r badges, echo=FALSE, results="asis", eval = grepl("gfm", knitr::opts_knit$get("rmarkdown.pandoc.to"))}
-cat("
-<!-- badges: start -->
-[![R-CMD-check](https://github.com/mbojan/lspline/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mbojan/lspline/actions/workflows/R-CMD-check.yaml)
-[![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/lspline?color=2ED968)](http://cranlogs.r-pkg.org/)
-[![cran version](http://www.r-pkg.org/badges/version/lspline)](https://cran.r-project.org/package=lspline)
-<!-- badges: end -->
-    ")
-```
-
-
-
-Linear splines with convenient parametrisations such that
+Linear splines with convenient parameterizations such that
 
 - coefficients are slopes of consecutive segments
 - coefficients capture slope change at consecutive knots
@@ -156,23 +140,3 @@ Graphically
 fig +
   geom_smooth(method="lm", formula=formula(m4), se=FALSE, n=200)
 ```
-
-
-
-# Installation
-
-Stable version from CRAN or development version from GitHub with
-
-```{r installation, eval=FALSE}
-devtools::install_github("mbojan/lspline", build_vignettes=TRUE)
-```
-
-
-
-
-# Acknowledgements
-
-Inspired by Stata command `mkspline` and function `ares::lspline` from Junger & Ponce de Leon (2011). As such, the implementation follows Greene (2003), chapter 7.5.2.
-
-- Greene, William H. (2003) *Econometric analysis*. Pearson Education
-- Junger & Ponce de Leon (2011) *`ares`: Environment air pollution epidemiology: a library for timeseries analysis*. R package version 0.7.2 retrieved from CRAN archives.
