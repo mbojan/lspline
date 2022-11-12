@@ -17,3 +17,4 @@ Authors@R: c(
 RoxygenNote: 7.2.1
 VignetteBuilder: knitr
 URL: https://mbojan.github.io/lspline/
+BugReports: https://github.com/mbojan/lspline/issues
