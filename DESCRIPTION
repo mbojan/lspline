@@ -2,7 +2,6 @@ Package: lspline
 Type: Package
 Title: Linear Splines with Convenient Parametrisations
 Version: 1.0-1
-Date: 2017-04-14
 Description: Linear splines with convenient parametrisations such that 
   (1) coefficients are slopes of consecutive segments or (2) coefficients are 
   slope changes at consecutive knots. Knots can be set manually or at break points
@@ -12,7 +11,9 @@ Suggests: testthat, knitr, rmarkdown, scales, ggplot2, broom
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Authors@R: c(person("Michal", "Bojanowski", role=c("aut", "cre"), email="michal2992@gmail.com"), 
-	comment = c(ORCID = "0000-0001-7503-852X"))
-RoxygenNote: 6.0.1
+Authors@R: c(
+  person("Michal", "Bojanowski", role=c("aut", "cre"), 
+    email="michal2992@gmail.com"), comment = c(ORCID = "0000-0001-7503-852X")
+  )
+RoxygenNote: 7.2.1
 VignetteBuilder: knitr
