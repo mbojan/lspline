@@ -39,7 +39,8 @@ remotes::install_github("mbojan/lspline", build_vignettes = TRUE)
 
 ## Examples
 
-See package home page at <https://mbojan.github.io/lspline/>.
+See package [homepage](https://mbojan.github.io/lspline/) and the
+[vignette](https://mbojan.github.io/lspline/articles/lspline.html).
 
 ## References
 
