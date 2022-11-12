@@ -1,4 +1,4 @@
-lspline: Linear Splines with Convenient Parametrisations
+`lspline`: Linear Splines with Convenient Parametrisations
 ================
 
 -   <a href="#examples" id="toc-examples">Examples</a>
