@@ -2,9 +2,6 @@
 ^\.Rproj\.user$
 ^README\.Rmd$
 ^README-.*\.png$
-^\.travis\.yml$
-^appveyor\.yml$
-Makefile
 ^\.github$
 ^_pkgdown\.yml$
 ^docs$
