@@ -10,7 +10,6 @@ Description: Linear splines with convenient parametrisations such that
 Suggests: testthat, knitr, rmarkdown, scales, ggplot2, broom
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
 Authors@R: c(
       person("Michal", "Bojanowski", role=c("aut", "cre"), 
       email="michal2992@gmail.com", comment = c(ORCID = "0000-0001-7503-852X"))
