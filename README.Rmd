@@ -57,9 +57,11 @@ See package [homepage](https://mbojan.github.io/lspline/) and the [vignette](htt
 
 
 ```{r logo, include=FALSE, eval=FALSE}
-# library(hexSticker)
+library(hexSticker)
 library(tidyverse)
 library(ggforce)
+
+# 1 ----------------------------------------------------------------------------
 d1 <- tibble::tribble(
   ~x, ~y,
   0, 0,
@@ -94,6 +96,8 @@ d1 |>
   coord_fixed()
 
 
+# 2 ----------------------------------------------------------------------------
+
 d <- tibble(
   y = c(0, 2, 1, 1.5),
   x = seq(along = y)
@@ -104,6 +108,7 @@ ggplot() +
   coord_fixed()
   
 
+# 3 ----------------------------------------------------------------------------
 
 d <- tibble::tribble(
   ~x, ~y,
@@ -130,16 +135,54 @@ d |>
     guide = "none"
   )
 
-tibble::tribble(
-  ~x, ~y, ~s,
-  0, 0, "s",
-  2, 2, "s",
-  3, 3, "d",
-  4, 4, "d"
-) |>
-  ggplot(aes(x = x, y = y, group = NULL)) +
-  geom_line(aes(linetype = s))
 
+# 4 ----------------------------------------------------------------------------
+
+# Generate data for the spline based on the sequence of values for 'y'.
+
+y <- c(0, 3, 1, 2)
+
+# Solid line
+d_solid <- tibble(x = seq(along=y), y = y)
+
+# Extends
+d_dashed <- tibble::tribble(
+  ~x, ~y, ~xend, ~yend,
+  2, 3, 2.5, 4.5,
+  3, 1, 3.5, 0
+)
+
+d_arcs <- tibble::tribble(
+  ~x0, ~y0, ~r, ~start, ~end,
+  2, 3, 0.5, pi/2 - atan(3), pi/2 + atan(2),
+  3, 1, 0.5, pi/2 - atan(1), pi/2 + atan(2)
+)
+
+d_labels <- tibble::tribble(
+  ~x, ~y, ~label,
+  2, 3, "beta[1]",
+  3, 1, "beta[2]"
+)
+
+p <- ggplot() +
+  geom_line(aes(x=x, y=y), data = d_solid) +
+  geom_segment(aes(x=x, y=y, xend=xend, yend=yend), data = d_dashed, 
+               linetype = "dotted"
+  ) +
+  geom_arc(aes(x0=x0, y0=y0, r=r, start=start, end=end), data = d_arcs) +
+  geom_label(aes(x=x, y=y, label=label), data = d_labels, parse = TRUE,
+             nudge_x = 0.25, nudge_y = 0) +
+  coord_fixed() +
+  theme_void()
+
+sticker(
+  p,
+  s_x = 1,
+  s_y = 1,
+  s_width = 2,
+  s_height = 2,
+  package = "lspline",
+) |> plot()
 ```
 
 
